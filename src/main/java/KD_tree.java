@@ -12,10 +12,9 @@ import java.util.Comparator;
 import java.util.LinkedList;
 
 
-
 public class KD_tree {
   private LinkedList<KD_node> tree;
-  private int dimensions;
+  private int dimensions_;
   private KD_node root_ = null;
   private KD_node best_ = null;
   private double bestDistance_ = 0;
@@ -23,9 +22,9 @@ public class KD_tree {
 
   //KD_tree builder: takes in a JSON file and builds a KD tree with specified dimensinos
   public KD_tree (int dimensions, File file){
-    dimensions = dimensions;
+    dimensions_ = dimensions;
     LinkedList<KD_node> nodes = this.loadData(file);
-    this.buildTree(nodes, 0, nodes.size(), 0);
+    root_ = this.buildTree(nodes, 0, nodes.size(), 0);
   }
 
   //takes in a list of nodes and orders into a balanced KD tree. returns head node
@@ -38,7 +37,7 @@ public class KD_tree {
     KD_node node = QuickSelect.select(nodes, begin, end - 1, n, new NodeComparator(index));
 
     //recurs, building tree of subnodes using next coordinate
-    index = (index + 1) % dimensions;
+    index = (index + 1) % dimensions_;
     node.setLeft(buildTree(nodes, begin, n, index));
     node.setRight(buildTree(nodes, n + 1, end, index));
     return node;
@@ -51,18 +50,26 @@ public class KD_tree {
       String line;
       while((line = br.readLine()) != null) {
         String[] values = line.split(",");
-        double[] coords = new double[dimensions];
+        double[] coords = new double[dimensions_];
         for (int i = 0; i < values.length; i++){
           String[] attribute = values[i].split(":");
-          switch(attribute[0]){
-            case ("weight"):
-              coords[0] = Double.parseDouble(attribute[1]);
+          switch(attribute[0].replace("\"", "")
+              .replace("{", "")
+              .replace("}", "")
+              .replace(" ", "")
+              .replace("[", "")){
+            case "weight":
+              coords[0] = Double.parseDouble(this.clean(attribute[1]));
               break;
-            case ("height"):
-              coords[1] = Double.parseDouble(attribute[1]);
+            case "height":
+              String height = this.clean(attribute[1]);
+              String feet = height.split("'")[0];
+              String in = height.split("'")[1];
+              coords[1] = Math.addExact(Math.multiplyExact(12,Integer.parseInt(feet)), Integer.parseInt(in));
               break;
-            case ("age"):
-              coords[2] = Double.parseDouble(attribute[1]);
+            case "age":
+              String age = this.clean(attribute[1]);
+              coords[2] = Double.parseDouble(age);
               break;
           }
         }
@@ -99,5 +106,19 @@ public class KD_tree {
     }
   }
 
+  public KD_node getRoot_(){
+    return root_;
+  }
+
+  private String clean(String s){
+    return s.replace("{", "")
+        .replace("}", "")
+        .replaceAll(" ", "")
+        .replaceAll("\"", "")
+        .replaceAll("\\\\", "")
+        .replace("[", "")
+        .replace("]", "")
+        .replace("lbs", "");
+  }
 
 }
