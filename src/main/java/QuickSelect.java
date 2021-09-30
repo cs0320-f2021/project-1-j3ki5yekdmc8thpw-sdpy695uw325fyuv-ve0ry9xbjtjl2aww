@@ -30,7 +30,8 @@ public class QuickSelect {
     T pivotValue = list.get(pivot);
     swap(list, pivot, right);
     int store = left;
-    for (int i = left; i < right; ++i) {
+    for (int i = left; i < right; i++) {
+
       if (cmp.compare(list.get(i), pivotValue) < 0) {
         swap(list, store, i);
         ++store;
