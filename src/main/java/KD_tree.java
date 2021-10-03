@@ -38,6 +38,7 @@ public class KD_tree {
 
     //recurs, building tree of subnodes using next coordinate
     index = (index + 1) % dimensions_;
+    System.out.println("index: " + index + " out of " + dimensions_ +" dimensions");
     node.setLeft(buildTree(nodes, begin, n, index));
     node.setRight(buildTree(nodes, n + 1, end, index));
     return node;
@@ -53,11 +54,7 @@ public class KD_tree {
         double[] coords = new double[dimensions_];
         for (int i = 0; i < values.length; i++){
           String[] attribute = values[i].split(":");
-          switch(attribute[0].replace("\"", "")
-              .replace("{", "")
-              .replace("}", "")
-              .replace(" ", "")
-              .replace("[", "")){
+          switch(this.clean(attribute[0])){
             case "weight":
               coords[0] = Double.parseDouble(this.clean(attribute[1]));
               break;

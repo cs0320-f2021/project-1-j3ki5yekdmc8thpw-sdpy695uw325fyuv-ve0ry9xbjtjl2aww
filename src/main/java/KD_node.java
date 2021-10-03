@@ -5,7 +5,7 @@ public class KD_node {
   private KD_node left_ = null;
   private KD_node right_ = null;
 
-  public KD_node(double[] coords) {
+  public KD_node (double[] coords) {
     coords_ = coords;
   }
 
