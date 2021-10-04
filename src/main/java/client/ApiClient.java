@@ -1,5 +1,9 @@
 package client;
 
+import DataTransferObjects.Users;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+
 import java.io.IOException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -22,7 +26,9 @@ public class ApiClient {
 
         try {
             HttpResponse<String> apiResponse = client.send(req, HttpResponse.BodyHandlers.ofString());
-            System.out.println("Status " + apiResponse.statusCode());
+            Users2[] obj = new Gson().fromJson(apiResponse.body(), Users2[].class);
+            // System.out.println(obj);
+            // System.out.println("Status " + apiResponse.statusCode());
             // System.out.println(apiResponse.body());
 
         } catch (IOException ioe) {
@@ -44,3 +50,18 @@ public class ApiClient {
         }
     }
 }
+
+class Users2 {
+    int user_id;
+    String weight;
+    String bust_size;
+    String height;
+    String age;
+    String body_type;
+    String horoscope;
+    public int getUser_id() {
+        return user_id;
+    }
+}
+
+// this website: https://www.techiediaries.com/java/java-11-httpclient-gson-send-http-get-parse-json-example/

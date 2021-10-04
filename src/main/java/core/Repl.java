@@ -42,8 +42,13 @@ public class Repl {
 
                 if (st.hasMoreTokens()) { // if the input is not blank, get the first token (the command)
                     String command = st.nextToken();
-
-                    // INSERT CONDITIONAL STATEMENTS HERE
+                    if (command.equals("basicGet")) { // Basic GET request
+                        client.makeRequest(ClientRequestGenerator.getIntroGetRequest());
+                    } else if (command.equals("keyedGet")) { // Basic GET request
+                        client.makeRequest(ClientRequestGenerator.getSecuredGetRequest());
+                    } else { // command unrecognized
+                        System.out.println("ERROR: Unrecognized command.");
+                    }
                 }
             } catch (IOException e) { // some kind of read error, so the repl exits
                 System.out.println("ERROR: Failed parsing input.");

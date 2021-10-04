@@ -14,13 +14,13 @@ public class ClientRequestGenerator {
 
 
     public static HttpRequest getIntroGetRequest() {
-        String reqUri = "https://epb3u4xo11.execute-api.us-east-1.amazonaws.com/Prod/introResource";
+        String reqUri = "https://runwayapi.herokuapp.com/users-two?auth=nsawick1&key=j07n8e0";
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(reqUri)).build();
         return request;
     }
 
     public static HttpRequest getSecuredGetRequest() {
-        String reqUri = "https://epb3u4xo11.execute-api.us-east-1.amazonaws.com/Prod/securedResource";
+        String reqUri = "https://runwayapi.herokuapp.com/users-five";
         ClientAuth authenticator = new ClientAuth();
         String apiKey = authenticator.getApiKey();
         HttpRequest request = HttpRequest.newBuilder()
