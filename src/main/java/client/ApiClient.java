@@ -9,6 +9,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.Arrays;
 
 /**
  * This class encapsulates the client request handling logic. It is agnostic of what kinds of requests are being made.
@@ -23,12 +24,16 @@ public class ApiClient {
     }
 
     public void makeRequest(HttpRequest req) {
-
+        // combine using a set so that duplicate objects aren't added
+        // json object converted class
         try {
             HttpResponse<String> apiResponse = client.send(req, HttpResponse.BodyHandlers.ofString());
             Users2[] obj = new Gson().fromJson(apiResponse.body(), Users2[].class);
-            // System.out.println(obj);
-            // System.out.println("Status " + apiResponse.statusCode());
+            for(Object index : obj) {
+                System.out.println(index.toString());
+            }
+            // System.out.println(Arrays.toString(obj));
+            System.out.println("Status " + apiResponse.statusCode());
             // System.out.println(apiResponse.body());
 
         } catch (IOException ioe) {
@@ -59,8 +64,9 @@ class Users2 {
     String age;
     String body_type;
     String horoscope;
-    public int getUser_id() {
-        return user_id;
+    @Override
+    public String toString() {
+        return user_id + weight + bust_size + height;
     }
 }
 
