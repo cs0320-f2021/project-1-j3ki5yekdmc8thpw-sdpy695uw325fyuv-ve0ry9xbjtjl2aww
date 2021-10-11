@@ -2,6 +2,8 @@
 //takes in a data set and builds a kd tree
 
 
+import org.w3c.dom.Node;
+
 import java.io.BufferedReader;
 import java.io.File;
 
@@ -28,13 +30,13 @@ public class KD_tree {
   }
 
   //takes in a list of nodes and orders into a balanced KD tree. returns head node
-  private KD_node buildTree(LinkedList<KD_node> nodes, int begin, int end, int index){
+  private <T extends Node> buildTree(LinkedList<T> nodes, int begin, int end, int index){
     if (end <= begin)
       return null;
     int n = begin + (end - begin)/2;
 
     //sorts nodes by first index
-    KD_node node = QuickSelect.select(nodes, begin, end - 1, n, new NodeComparator(index));
+    T node = QuickSelect.select(nodes, begin, end - 1, n, new NodeComparator(index));
 
     //recurs, building tree of subnodes using next coordinate
     index = (index + 1) % dimensions_;
@@ -83,25 +85,6 @@ public class KD_tree {
     return imported_nodes;
   }
 
-
-  //takes the index of one coordinate and compares two nodes based on that value
-  private static class NodeComparator implements Comparator<KD_node> {
-    private int index_;
-
-    private NodeComparator(int index) {
-      index_ = index;
-    }
-
-    /* takes two kd nodes and compares their given indexes.
-    * returns:
-    *   0: if d1 is numerically equal to d2.
-    *   Negative value: if d1 is numerically less than d2.
-    *   Positive value: if d1 is numerically greater than d2.
-    */
-    public int compare(KD_node n1, KD_node n2) {
-      return Double.compare(n1.getCoord(index_), n2.getCoord(index_));
-    }
-  }
 
   public KD_node getRoot_(){
     return root_;
