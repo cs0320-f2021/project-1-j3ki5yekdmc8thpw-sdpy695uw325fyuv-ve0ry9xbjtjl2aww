@@ -11,7 +11,7 @@ import java.util.Objects;
  @param <T> Any type for the ID of the Coordinates that is specified
  when being used to construct a Tree.KdTree.
  */
-public class KdTree<T> {
+public class KD_tree<T> {
   private final int dimensions;
   private final KD_node<Coordinate<T>> root;
 
@@ -19,7 +19,7 @@ public class KdTree<T> {
    @param dimensions the dimension number, from 1 to n where n is a positive integer.
    @param coordinates a list of Coordinates of any identifier/id type
    */
-  public KdTree(int dimensions, List<Coordinate<T>> coordinates) {
+  public KD_tree(int dimensions, List<Coordinate<T>> coordinates) {
     this.dimensions = dimensions;
     this.root = createKdTree(new ArrayList<>(coordinates));
   }
