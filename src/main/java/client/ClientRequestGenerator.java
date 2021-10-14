@@ -13,19 +13,15 @@ import java.time.Duration;
 public class ClientRequestGenerator {
 
 
-    public static HttpRequest getIntroGetRequest() {
-        String reqUri = "https://runwayapi.herokuapp.com/users-two?auth=nsawick1&key=j07n8e0";
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(reqUri)).build();
-        return request;
-    }
-
-    public static HttpRequest getSecuredGetRequest() {
-        String reqUri = "https://runwayapi.herokuapp.com/users-five";
+    public static HttpRequest getSecuredRequest(String file) {
         ClientAuth authenticator = new ClientAuth();
         String apiKey = authenticator.getApiKey();
+        String[] apiKeyArray = apiKey.split(" ");
+        String user = apiKeyArray[0];
+        String password = apiKeyArray[1];
+        String reqUri = file + user + "&key=" + password;
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(reqUri))
-                .header("x-api-key", apiKey)
                 .build();
         return request;
     }

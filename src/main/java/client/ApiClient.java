@@ -3,6 +3,7 @@ package client;
 import DataTransferObjects.Users;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import core.ApiAggregator;
 
 import java.io.IOException;
 import java.net.http.HttpClient;
@@ -23,19 +24,13 @@ public class ApiClient {
         this.client = HttpClient.newHttpClient();
     }
 
-    public void makeRequest(HttpRequest req) {
+    public String makeRequest(HttpRequest req) throws Exception {
         // combine using a set so that duplicate objects aren't added
         // json object converted class
         try {
             HttpResponse<String> apiResponse = client.send(req, HttpResponse.BodyHandlers.ofString());
-            Users2[] obj = new Gson().fromJson(apiResponse.body(), Users2[].class);
-            for(Object index : obj) {
-                System.out.println(index.toString());
-            }
-            // System.out.println(Arrays.toString(obj));
-            System.out.println("Status " + apiResponse.statusCode());
-            // System.out.println(apiResponse.body());
-
+            ApiAggregator api = new ApiAggregator();
+            return apiResponse.body();
         } catch (IOException ioe) {
             System.out.println("An I/O error occurred when sending or receiving data.");
             System.out.println(ioe.getMessage());
@@ -53,20 +48,7 @@ public class ApiClient {
             System.out.println("There was a security configuration error.");
             System.out.println(se.getMessage());
         }
-    }
-}
-
-class Users2 {
-    int user_id;
-    String weight;
-    String bust_size;
-    String height;
-    String age;
-    String body_type;
-    String horoscope;
-    @Override
-    public String toString() {
-        return user_id + weight + bust_size + height;
+        throw new Exception("ERROR: Request Failed");
     }
 }
 

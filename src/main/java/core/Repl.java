@@ -39,14 +39,18 @@ public class Repl {
 
                 // initialize a StringTokenizer to help parse the input, broken by space or tabs
                 StringTokenizer st = new StringTokenizer(s, " \t", false);
-
+                ApiAggregator aggregator = new ApiAggregator();
                 if (st.hasMoreTokens()) { // if the input is not blank, get the first token (the command)
                     String command = st.nextToken();
-                    if (command.equals("basicGet")) { // Basic GET request
-                        client.makeRequest(ClientRequestGenerator.getIntroGetRequest());
-                    } else if (command.equals("keyedGet")) { // Basic GET request
-                        client.makeRequest(ClientRequestGenerator.getSecuredGetRequest());
-                    } else { // command unrecognized
+                    if (command.equals("users")) { // Basic GET request
+                        // KD TREE JSON FILE (aggregator.getData("users"));
+                        // client.makeRequest(ClientRequestGenerator.getSecuredRequest());
+                    } else if(command.equals("reviews")) {
+                        // KD TREE JSON FILE (aggregator.getData("reviews"));
+                    } else if(command.equals("rent")) {
+                        // KD TREE JSON FILE (aggregator.getData("rent"));
+                    }
+                    else { // command unrecognized
                         System.out.println("ERROR: Unrecognized command.");
                     }
                 }
