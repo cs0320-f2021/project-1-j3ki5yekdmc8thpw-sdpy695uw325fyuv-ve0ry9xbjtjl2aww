@@ -1,5 +1,8 @@
-package src.main.java;
+//package src.main.java;
+package Utils;
 
+import Tree.Coordinate;
+import Tree.KD_Coordinate;
 import Tree.KD_node;
 
 import java.io.BufferedReader;
@@ -24,8 +27,7 @@ public class UserHandler {
    * TODO: Need to create a method that will parse json files and store data into userData
    * @param filename - file path for the desired json file
    */
-  userData = this.LoadFile(new File());
-
+  //userData = this.LoadFile(new File());
 
   /**
    * TODO: Need to create userData before using this method
@@ -51,10 +53,11 @@ public class UserHandler {
    * @param input - String input that user provides
    * @return list of users nearest the input user info
    */
-  public static List<User> nearestNeighbors(String input) {
+  public static <T> List<User> nearestNeighbors(String input) {
     String[] arguments = input.split(" ");
     List<User> neighborUsers = new ArrayList<>();
-    KD_node node = new KD_node();// initiate root of the KD tree here
+
+    //KD_node<Coordinate<T>> node = new KD_node(User, null, null);// initiate root of the KD tree here
 
     // if user input is similar <k> <weight> <height> <age>,
     // it uses the node coordinates to find the nearest neighbors
@@ -81,10 +84,10 @@ public class UserHandler {
    */
   // Need to be able to get each axis from the node
   // index 0 == weight axis, 1 == height axis, 2 == age axis?
-  public static double findDistance(KD_node currentNode, double[] targetPoint) {
-    double x = currentNode.getCoord(0);
-    double y = currentNode.getCoord(1);
-    double z = currentNode.getCoord(2);
+  public static double findDistance(KD_node<KD_Coordinate> currentNode, double[] targetPoint) {
+    double x = currentNode.getValue().getCoord(0);
+    double y = currentNode.getValue().getCoord(1);
+    double z = currentNode.getValue().getCoord(2);
     return Math.sqrt(Math.pow(x - targetPoint[0], 2) + Math.pow(y - targetPoint[1], 2)
         + Math.pow(z - targetPoint[2], 2));
   }
@@ -161,15 +164,15 @@ public class UserHandler {
    * @return list of coordinates of the nearest users
    */
   // Need to be able to get coords from each node
-  public static List<User> findNearest1(int k, KD_node node, double[] targetPoint) {
+  public static List<User> findNearest1(int k, KD_node<KD_Coordinate> node, double[] targetPoint) {
     List<double[]> neighborUsers = new ArrayList<>();
     double minDistance = Double.POSITIVE_INFINITY;
-    KD_node currentNode = node;
+    KD_node<KD_Coordinate> currentNode = node;
     double currentDistance = findDistance(currentNode, targetPoint);
 
     if (currentDistance < minDistance) {
       minDistance = currentDistance;
-      neighborUsers.add(currentNode.getAllCoords());
+      neighborUsers.add(currentNode.getValue().getAllCoords());
     }
     /**
      * TODO: How do I find the relevant axis according to depth? needed for line 178, 179
@@ -203,13 +206,13 @@ public class UserHandler {
 
 
   //parses a JSON file: separates labels from data and stores data in a list of nodes
-  private LinkedList<KD_node> loadData(File file){
-    LinkedList<KD_node> imported_nodes = new LinkedList<KD_node>();
+  private LinkedList<KD_node<KD_Coordinate>> loadData(File file){
+    LinkedList<KD_node<KD_Coordinate>> imported_nodes = new LinkedList<KD_node<KD_Coordinate>>();
     try(BufferedReader br = new BufferedReader(new FileReader(file))) {
       String line;
       while((line = br.readLine()) != null) {
         String[] values = line.split(",");
-        double[] coords = new double[dimensions_];
+        double[] coords = new double[3];
         for (int i = 0; i < values.length; i++){
           String[] attribute = values[i].split(":");
           switch(this.clean(attribute[0])){
@@ -228,7 +231,7 @@ public class UserHandler {
               break;
           }
         }
-        KD_node node = new KD_node(coords);
+        KD_node<KD_Coordinate> node = new KD_node<KD_Coordinate>(new KD_Coordinate(coords), null, null);
         imported_nodes.add(node);
       }
     } catch (FileNotFoundException e) {
@@ -251,4 +254,6 @@ public class UserHandler {
         .replace("]", "")
         .replace("lbs", "");
   }
+
+
 }

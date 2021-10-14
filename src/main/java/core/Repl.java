@@ -1,9 +1,13 @@
 package core;
 
+import Tree.Coordinate;
+import Tree.KD_tree;
+import Tree.Tree_Builder;
 import client.ApiClient;
 import client.ClientRequestGenerator;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
@@ -16,7 +20,7 @@ public class Repl {
     /**
      * instantiates a REPL.
      *
-     * @param commands - a map of string command names to IReplMethod objects, which
+     * param commands - a map of string command names to IReplMethod objects, which
      *                 are a wrapper for a method to be called
      */
     public Repl() {
@@ -45,6 +49,14 @@ public class Repl {
                     if (command.equals("users")) { // Basic GET request
                         // KD TREE JSON FILE (aggregator.getData("users"));
                         // client.makeRequest(ClientRequestGenerator.getSecuredRequest());
+                        Tree_Builder<Double> builder = new Tree_Builder<Double>();
+
+
+                        // @TODO: pass a file into builder
+                         // builder.loadData();
+                        KD_tree<Coordinate<Double>> tree = new KD_tree<Coordinate<Double>>(3,
+                            builder.loadData(new File()));
+
                     } else if(command.equals("reviews")) {
                         // KD TREE JSON FILE (aggregator.getData("reviews"));
                     } else if(command.equals("rent")) {

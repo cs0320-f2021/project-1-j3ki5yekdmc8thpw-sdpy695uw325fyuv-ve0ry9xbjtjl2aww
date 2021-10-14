@@ -1,4 +1,4 @@
-
+package Utils;
 
 public class User {
   private String horoscope;
@@ -9,7 +9,7 @@ public class User {
   private int userId;
 
   /**
-   * User class constructor
+   * Utils.User class constructor
    * @param horoscope - horoscope of the user
    * @param weight - weight of the user in lbs
    * @param height - height of the user in inches

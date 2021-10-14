@@ -8,8 +8,8 @@ import java.util.Objects;
  */
 public class KD_node<T> {
   private final T value;
-  private final KD_node<T> left_;
-  private final KD_node<T> right_;
+  private KD_node<T> left_;
+  private KD_node<T> right_;
 
   /**
    * Constructor for Tree.KD_node.
@@ -78,6 +78,17 @@ public class KD_node<T> {
     return right_;
   }
 
+  //updates left child
+  public void setLeft(KD_node<T> node){
+    left_ = node;
+  }
+
+  //updates right child
+  public void setRight(KD_node<T> node){
+    right_ = node;
+  }
+
+
 
 //
 //  //updates single coordinate
@@ -85,10 +96,11 @@ public class KD_node<T> {
 //    coords_[index] = d;
 //  }
 
-  //returns type of value stored in node
-  private T getValue(){
+  //returns value of type T stored in node
+  public T getValue(){
     return value;
   }
+
 
 //
 //  public String toString() {

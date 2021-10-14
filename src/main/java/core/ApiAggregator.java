@@ -75,7 +75,7 @@ public class ApiAggregator {
 
 
         // dummy return
-        return new TypeToken<List<Object>>(){}.getType();
+        //return new TypeToken<List<Object>>(){}.getType();
     }
 
 }

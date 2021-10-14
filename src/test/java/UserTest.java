@@ -1,5 +1,6 @@
 //package test.java;
 
+import Utils.User;
 import main.java.User;
 import org.junit.Test;
 

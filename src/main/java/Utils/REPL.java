@@ -17,14 +17,14 @@ public class REPL {
           switch (arguments[0]) {
 
             case "similar":
-              if (Integer.parseInt(arguments[1]) <= 0) {
-                throw new Exception("ERROR: k must be greater than zero");
-              }
-              if (userData.isEmpty()) {
-                throw new Exception("ERROR: must provide user data");
-              } else {
-                UserHandler nearestNeighbors = new UserHandler(userData);
-              }
+//              if (Integer.parseInt(arguments[1]) <= 0) {
+//                throw new Exception("ERROR: k must be greater than zero");
+//              }
+//              if (userData.isEmpty()) {
+//                throw new Exception("ERROR: must provide user data");
+//              } else {
+//                UserHandler nearestNeighbors = new UserHandler(userData);
+//              }
               break;
             default:
               System.out.println(arguments[0]);
