@@ -13,13 +13,13 @@ import java.util.Objects;
  */
 public class KD_tree<T> {
   private final int dimensions;
-  private final KD_node<Coordinate<T>> root;
+  private final KD_node<KD_Coordinate> root;
 
   /** Set the Tree.KdTree to have the passed coordinates with the specified dimensions each.
    @param dimensions the dimension number, from 1 to n where n is a positive integer.
    @param coordinates a list of Coordinates of any identifier/id type
    */
-  public KD_tree(int dimensions, List<Coordinate<T>> coordinates) {
+  public KD_tree(int dimensions, List<KD_Coordinate> coordinates) {
     this.dimensions = dimensions;
     this.root = createKdTree(new ArrayList<>(coordinates));
   }
@@ -29,7 +29,7 @@ public class KD_tree<T> {
    @param coordinates a list of Coordinates of any identifier/id type
    @return a Node of same type as passed when constructing the Tree.KdTree.
    */
-  public KD_node<Coordinate<T>> createKdTree(List<Coordinate<T>> coordinates) {
+  public KD_node<KD_Coordinate> createKdTree(List<KD_Coordinate> coordinates) {
     return createNextLayer(1, coordinates);
   }
 
@@ -39,25 +39,25 @@ public class KD_tree<T> {
    within this sub-KDTree.
    @return a Node of same type as passed when constructing the Tree.KdTree.
    */
-  private KD_node<Coordinate<T>> createNextLayer(int currentDim,
-                                              List<Coordinate<T>> remainingCoordinates) {
+  private KD_node<KD_Coordinate> createNextLayer(int currentDim,
+                                              List<KD_Coordinate> remainingCoordinates) {
     if (remainingCoordinates.size() == 0) {
       return new KD_node<>(null, null, null);
     } else {
-      Comparator<Coordinate<T>> byDimension
-          = Comparator.comparingDouble(coordinate -> coordinate.getCoordinateVal(currentDim));
+      Comparator<KD_Coordinate> byDimension
+          = Comparator.comparingDouble(coordinate -> coordinate.getCoord(currentDim));
 
       remainingCoordinates.sort(byDimension);
 
       int middleIndex = remainingCoordinates.size() / 2;
 
       // find median coordinate, coordinates lesser, coordinates greater than median
-      Coordinate<T> medianCoordinate = remainingCoordinates.get(middleIndex);
-      List<List<Coordinate<T>>> splitResult
+      KD_Coordinate medianCoordinate = remainingCoordinates.get(middleIndex);
+      List<List<KD_Coordinate>> splitResult
           = Utils.Utils.splitList(remainingCoordinates, middleIndex);
 
-      List<Coordinate<T>> lesserCoordinates = splitResult.get(0);
-      List<Coordinate<T>> greaterCoordinates = splitResult.get(1);
+      List<KD_Coordinate> lesserCoordinates = splitResult.get(0);
+      List<KD_Coordinate> greaterCoordinates = splitResult.get(1);
 
       // calculate next dimension
       int nextDimension;
@@ -80,7 +80,7 @@ public class KD_tree<T> {
   /** Get the root of the Tree.KdTree created.
    @return a Node with value being a Coordinate of the specified ID type.
    */
-  public KD_node<Coordinate<T>> getRoot() {
+  public KD_node<KD_Coordinate> getRoot() {
     return root;
   }
 

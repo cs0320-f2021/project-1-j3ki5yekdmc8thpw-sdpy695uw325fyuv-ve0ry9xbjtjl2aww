@@ -178,7 +178,7 @@ public class UserHandler {
      * TODO: How do I find the relevant axis according to depth? needed for line 178, 179
      * TODO: find relevant axis distance (distance between two axis) here (double)
      */
-    double currentNodeAxis = currentNode.getCoord(); // x, y, or z coordinate (need a # inside parenthesis)
+    double currentNodeAxis = currentNode.getValue(); // x, y, or z coordinate (need a # inside parenthesis)
     double targetNodeAxis = targetPoint[]; // x, y, or z coordinate (need a # inside bracket)
     double axisDistance = targetNodeAxis - currentNodeAxis;
 
