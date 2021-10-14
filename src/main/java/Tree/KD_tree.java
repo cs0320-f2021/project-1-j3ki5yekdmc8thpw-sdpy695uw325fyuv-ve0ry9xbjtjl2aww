@@ -107,7 +107,7 @@ public class KD_tree<T> {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    KdTree<?> kdTree = (KdTree<?>) o;
+    KD_tree<?> kdTree = (KD_tree<?>) o;
     return dimensions == kdTree.dimensions && Objects.equals(root, kdTree.root);
   }
 
