@@ -1,15 +1,12 @@
 package core;
 
-import Tree.Coordinate;
-import Tree.KD_tree;
-import Tree.Tree_Builder;
 import client.ApiClient;
-import client.ClientRequestGenerator;
+import core.Commands.Command;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
 import java.util.StringTokenizer;
 
 /**
@@ -34,6 +31,8 @@ public class Repl {
     public void run(ApiClient client) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
+        LinkedList<Command> commands = new LinkedList<Command>();
+
         while (true) { // parsing input loop
             try {
                 String s = reader.readLine();
@@ -44,27 +43,11 @@ public class Repl {
                 // initialize a StringTokenizer to help parse the input, broken by space or tabs
                 StringTokenizer st = new StringTokenizer(s, " \t", false);
                 ApiAggregator aggregator = new ApiAggregator();
+
                 if (st.hasMoreTokens()) { // if the input is not blank, get the first token (the command)
                     String command = st.nextToken();
-                    if (command.equals("users")) { // Basic GET request
-                        // KD TREE JSON FILE (aggregator.getData("users"));
-                        // client.makeRequest(ClientRequestGenerator.getSecuredRequest());
-                        Tree_Builder<Double> builder = new Tree_Builder<Double>();
-
-
-                        // @TODO: pass a file into builder
-                         // builder.loadData();
-                        KD_tree<Coordinate<Double>> tree = new KD_tree<Coordinate<Double>>(3,
-                            builder.loadData(new File()));
-
-                    } else if(command.equals("reviews")) {
-                        // KD TREE JSON FILE (aggregator.getData("reviews"));
-                    } else if(command.equals("rent")) {
-                        // KD TREE JSON FILE (aggregator.getData("rent"));
-                    }
-                    else { // command unrecognized
-                        System.out.println("ERROR: Unrecognized command.");
-                    }
+                    Mapper mapper = new Mapper();
+                    mapper.get(command).executeCommand();
                 }
             } catch (IOException e) { // some kind of read error, so the repl exits
                 System.out.println("ERROR: Failed parsing input.");
