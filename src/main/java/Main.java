@@ -2,7 +2,6 @@
 
 import Utils.REPL;
 import Utils.User;
-import Utils.UserHandler;
 import com.google.common.collect.ImmutableMap;
 import freemarker.template.Configuration;
 import joptsimple.OptionParser;

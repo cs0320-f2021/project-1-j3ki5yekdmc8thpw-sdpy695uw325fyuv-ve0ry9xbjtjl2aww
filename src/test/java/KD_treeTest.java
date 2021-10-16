@@ -62,7 +62,6 @@ public class KD_treeTest {
     assertEquals(root.getLeft().getLeft().getValue().getAllCoords()[0], 2, 0);
 
     assertNull(root.getRight().getRight().getValue());
-
   }
 
 
