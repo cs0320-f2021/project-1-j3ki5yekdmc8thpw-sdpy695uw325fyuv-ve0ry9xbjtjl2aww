@@ -1,5 +1,6 @@
 //package main.java;
 
+import Utils.REPL;
 import Utils.User;
 import Utils.UserHandler;
 import com.google.common.collect.ImmutableMap;
@@ -62,36 +63,8 @@ public class Main {
     if (options.has("gui")) {
       runSparkServer((int) ((OptionSet) options).valueOf("port"));
     }
-
-    try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
-      String input;
-      UserHandler users = new UserHandler(userData);
-      while ((input = br.readLine()) != null) {
-        try {
-          input = input.trim();
-          String[] arguments = input.split(" ");
-
-          // allow user command
-          switch (arguments[0]) {
-
-            case "similar":
-              if (Integer.parseInt(arguments[1]) <= 0) {
-                throw new Exception("ERROR: k must be greater than zero");
-              }
-              if (userData.isEmpty()) {
-                throw new Exception("ERROR: must provide user data");
-              } else{
-                UserHandler nearestNeighbors = new UserHandler(userData);
-              }
-              break;
-            default:
-              System.out.println(arguments[0]);
-          }
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-      }
-    }
+    REPL repl = new REPL();
+    repl.run();
   }
 
   private static FreeMarkerEngine createEngine() {
