@@ -93,7 +93,6 @@ public class KD_treeTest {
     data4[2] = 0.0;
     KD_Coordinate c4 = new KD_Coordinate(data4);
 
-
     // creating list of coordinates
     List<KD_Coordinate> allCoords = new ArrayList<>();
     allCoords.add(c1);
