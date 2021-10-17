@@ -64,18 +64,19 @@ public class ApiAggregator {
         //Example usage from Project 1: Sprint...
         if(dataType.equals("rent")){
             return new TypeToken<List<Rent>>(){}.getType();
-        }else if(dataType.equals("reviews")){
+        } else if(dataType.equals("reviews")){
             return new TypeToken<List<Reviews>>(){}.getType();
-        }else if (dataType.equals("users")){
+        } else if (dataType.equals("users")){
             return new TypeToken<List<Users>>(){}.getType();
-        }else {
+        } else {
             throw new Exception("The aggregator does not contain a content type called: " + dataType);
         }
-
-
-
         // dummy return
-        return new TypeToken<List<Object>>(){}.getType();
+        // return new TypeToken<List<Object>>(){}.getType();
     }
 
 }
+
+// create API connection
+// using json to gson and convert them to java class objects
+// develop methods that use kd tree
