@@ -60,8 +60,6 @@ public class ApiAggregator {
     public Type setType(String dataType) throws Exception {
         Type type;
 
-
-        //Example usage from Project 1: Sprint...
         if(dataType.equals("rent")){
             return new TypeToken<List<Rent>>(){}.getType();
         }else if(dataType.equals("reviews")){
@@ -71,11 +69,6 @@ public class ApiAggregator {
         }else {
             throw new Exception("The aggregator does not contain a content type called: " + dataType);
         }
-
-
-
-        // dummy return
-        //return new TypeToken<List<Object>>(){}.getType();
     }
 
 }
