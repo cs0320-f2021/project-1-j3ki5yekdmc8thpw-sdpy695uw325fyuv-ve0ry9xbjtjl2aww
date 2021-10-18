@@ -11,6 +11,4 @@ public class Users {
     String age;
     String body_type;
     String horoscope;
-
-
 }

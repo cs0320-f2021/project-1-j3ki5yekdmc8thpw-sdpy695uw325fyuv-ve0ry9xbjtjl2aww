@@ -1,4 +1,5 @@
 
+import KDTreeSearch.KDTreeSearch;
 import Tree.KD_Coordinate;
 import Tree.KD_node;
 import Tree.KD_tree;
@@ -64,7 +65,6 @@ public class KD_treeTest {
     assertNull(root.getRight().getRight().getValue());
   }
 
-
   @Test
   public void testEquals() {
     // creating coordinates
@@ -110,6 +110,8 @@ public class KD_treeTest {
     assertEquals(tree1, tree1);
     assertNotEquals(tree1, tree3);
   }
+
+
 }
 //
 //import static org.junit.Assert.assertEquals;
