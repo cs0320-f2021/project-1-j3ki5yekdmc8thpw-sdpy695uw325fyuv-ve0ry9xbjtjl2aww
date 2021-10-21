@@ -36,11 +36,11 @@ public class UserHandler {
    * @return a user with an ID that matches input coordinate
    * @throws IllegalArgumentException if the input coordinate does not exist in userData
    */
-  public static User getUser(double[] coord) throws IllegalArgumentException {
+  public static User getUser(KD_Coordinate coord) throws IllegalArgumentException {
     for (User user: userData) {
-      if (user.getWeight() == coord[0] &&
-          user.getHeight() == coord[1] &&
-          user.getAge() == coord[2]) {
+      if (user.getWeight() == coord.getCoord(0) &&
+          user.getHeight() == coord.getCoord(1) &&
+          user.getAge() == coord.getCoord(2)) {
         return user;
       }
     }
@@ -84,13 +84,13 @@ public class UserHandler {
    */
   // Need to be able to get each axis from the node
   // index 0 == weight axis, 1 == height axis, 2 == age axis?
-  public static double findDistance(KD_node<KD_Coordinate> currentNode, double[] targetPoint) {
-    double x = currentNode.getValue().getCoord(0);
-    double y = currentNode.getValue().getCoord(1);
-    double z = currentNode.getValue().getCoord(2);
-    return Math.sqrt(Math.pow(x - targetPoint[0], 2) + Math.pow(y - targetPoint[1], 2)
-        + Math.pow(z - targetPoint[2], 2));
-  }
+//  public static double findDistance(KD_node<KD_Coordinate> currentNode, double[] targetPoint) {
+//    double x = currentNode.getValue().getCoord(0);
+//    double y = currentNode.getValue().getCoord(1);
+//    double z = currentNode.getValue().getCoord(2);
+//    return Math.sqrt(Math.pow(x - targetPoint[0], 2) + Math.pow(y - targetPoint[1], 2)
+//        + Math.pow(z - targetPoint[2], 2));
+//  }
 
 
   /**
@@ -100,24 +100,24 @@ public class UserHandler {
    * @param neighbors - list of node coordinates that are close to the targetPoint
    * @return the farthest distance between the targetPoint and nearest neighbors
    */
-  public static double farthestNeighbor(double[] targetPoint, List<double[]> neighbors) {
-    double maxDistance = 0.0;
-    //double[] maxCoord = new double[3];
-    for (double[] coord: neighbors) {
-      double x2 = coord[0];
-      double y2 = coord[1];
-      double z2 = coord[2];
-      double distance = Math.sqrt(Math.pow(targetPoint[0] - x2, 2)
-          + Math.pow(targetPoint[1] - y2, 2) + Math.pow(targetPoint[2] - z2, 2));
-      if (distance > maxDistance) {
-        maxDistance = distance;
-        //maxCoord[0] = x2;
-        //maxCoord[1] = y2;
-        //maxCoord[2] = z2;
-      }
-    }
-    return maxDistance;
-  }
+//  public static double farthestNeighbor(double[] targetPoint, List<double[]> neighbors) {
+//    double maxDistance = 0.0;
+//    //double[] maxCoord = new double[3];
+//    for (double[] coord: neighbors) {
+//      double x2 = coord[0];
+//      double y2 = coord[1];
+//      double z2 = coord[2];
+//      double distance = Math.sqrt(Math.pow(targetPoint[0] - x2, 2)
+//          + Math.pow(targetPoint[1] - y2, 2) + Math.pow(targetPoint[2] - z2, 2));
+//      if (distance > maxDistance) {
+//        maxDistance = distance;
+//        //maxCoord[0] = x2;
+//        //maxCoord[1] = y2;
+//        //maxCoord[2] = z2;
+//      }
+//    }
+//    return maxDistance;
+//  }
 
 
   /**
