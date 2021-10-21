@@ -14,45 +14,47 @@ public class KD_treeTest {
   @Test
   public void testCreateKdTree() {
     // creating coordinates
-    double[] data1 = new double[3];
-    data1[0] = 3.0;
-    data1[1] = 1.0;
-    data1[2] = 4.0;
-    KD_Coordinate c1 = new KD_Coordinate(data1);
+//    double[] data1 = new double[3];
+//    data1[0] = 3.0;
+//    data1[1] = 1.0;
+//    data1[2] = 4.0;
+//    KD_Coordinate c1 = new KD_Coordinate(data1);
+//
+//    double[] data2 = new double[3];
+//    data2[0] = 2.0;
+//    data2[1] = 3.0;
+//    data2[2] = 7.0;
+//    KD_Coordinate c2 = new KD_Coordinate(data2);
+//
+//    double[] data3 = new double[3];
+//    data3[0] = 4.0;
+//    data3[1] = 3.0;
+//    data3[2] = 4.0;
+//    KD_Coordinate c3 = new KD_Coordinate(data3);
 
-    double[] data2 = new double[3];
-    data2[0] = 2.0;
-    data2[1] = 3.0;
-    data2[2] = 7.0;
-    KD_Coordinate c2 = new KD_Coordinate(data2);
+    List<Double> data4 = new ArrayList<Double>;
 
-    double[] data3 = new double[3];
-    data3[0] = 4.0;
-    data3[1] = 3.0;
-    data3[2] = 4.0;
-    KD_Coordinate c3 = new KD_Coordinate(data3);
+    data4.add(2.0);
+    data4.add(1.0);
+    data4.add(3.0);
 
-    double[] data4 = new double[3];
-    data4[0] = 2.0;
-    data4[1] = 1.0;
-    data4[2] = 3.0;
-    KD_Coordinate c4 = new KD_Coordinate(data4);
+    KD_Coordinate<Double> c4 = new KD_Coordinate<Double>(data4);
 
     // creating list of coordinates
-    List<KD_Coordinate> allCoords = new ArrayList<>();
-    allCoords.add(c1);
-    allCoords.add(c2);
-    allCoords.add(c3);
+    List<KD_Coordinate<Double>> allCoords = new ArrayList<>();
+//    allCoords.add(c1);
+//    allCoords.add(c2);
+//    allCoords.add(c3);
     allCoords.add(c4);
 
     // loading tree
-    KD_tree<KD_node<KD_Coordinate>> tree = new KD_tree<KD_node<KD_Coordinate>>(3, allCoords);
+    KD_tree<KD_node<KD_Coordinate<Double>>> tree = new KD_tree<KD_node<KD_Coordinate<Double>>>(3, allCoords);
 
-    KD_node<KD_Coordinate> root = tree.getRoot();
+    KD_node<KD_Coordinate<Double>> root = tree.getRoot();
 
-    assertEquals(root.getValue().getAllCoords()[0], 3, 0);
-    assertEquals(root.getValue().getAllCoords()[1], 1, 0);
-    assertEquals(root.getValue().getAllCoords()[2], 4, 0);
+    assertEquals(root.getValue().getAllCoords().get(0), 3, 0);
+    assertEquals(root.getValue().getAllCoords().get(1), 1, 0);
+    assertEquals(root.getValue().getAllCoords().get(2), 4, 0);
 
     assertEquals(root.getLeft().getValue().getAllCoords()[0], 2, 0);
     assertEquals(root.getLeft().getValue().getAllCoords()[1], 3, 0);
@@ -62,6 +64,7 @@ public class KD_treeTest {
     assertEquals(root.getLeft().getLeft().getValue().getAllCoords()[0], 2, 0);
 
     assertNull(root.getRight().getRight().getValue());
+
   }
 
 
@@ -92,6 +95,7 @@ public class KD_treeTest {
     data4[1] = 10.0;
     data4[2] = 0.0;
     KD_Coordinate c4 = new KD_Coordinate(data4);
+
 
     // creating list of coordinates
     List<KD_Coordinate> allCoords = new ArrayList<>();

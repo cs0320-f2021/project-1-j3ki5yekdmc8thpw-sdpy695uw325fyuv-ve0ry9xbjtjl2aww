@@ -54,6 +54,7 @@ public class Repl {
                 break;
             }
         }
+
         try {
             reader.close();
         } catch (IOException e) {
